@@ -3,7 +3,7 @@ class ActiveResource::Base
   CONFIG_FILE = RAILS_ROOT + "/config/active_resource.yml"
   def self.config
     raise "#{CONFIG_FILE} non-existent!" unless File.exist?(CONFIG_FILE)
-    @config ||= YAML.load_file(CONFIG_FILE)
+    @config ||= YAML.load(ERB.new(File.read(CONFIG_FILE)).result)
   end
   
   def self.load_config(name)
